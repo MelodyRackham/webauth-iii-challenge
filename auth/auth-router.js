@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const secrets = require('../secrets.js');
 const Users = require('../users/user-model.js');
 
 router.post('/register', (req, res) => {
@@ -13,6 +12,7 @@ router.post('/register', (req, res) => {
       res.status(201).json(saved);
     })
     .catch(error => {
+      console.log(error);
       res.status(500).json(error);
     });
 });

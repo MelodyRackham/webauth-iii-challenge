@@ -1,28 +1,27 @@
-const db = require('../datebase/config');
+const db = require('../database/config');
 
 module.exports = {
   find,
-  add,
-  findById,
   findBy,
+  add,
 };
 
 function find() {
-  return db('users').select('id', 'username', 'department');
+  return db('users');
 }
 
-async function add(user) {
-  const [id] = await db('users').insert(user);
-
-  return findById(id);
-}
-
-function findBy(filter) {
-  return db('users').where(filter);
-}
-
-function findById(id) {
+function findBy(property) {
   return db('users')
-    .where({ id })
+    .select('id', 'username', 'department')
+    .where(property)
     .first();
+}
+
+function add(user) {
+  return db('users')
+    .insert(user, 'id')
+    .then(ids => {
+      const [id] = ids;
+      return findBy({ id });
+    });
 }
