@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const secrets = require('../secrets.js');
+const secrets = require('./secrets.js');
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
@@ -14,6 +14,6 @@ module.exports = (req, res, next) => {
       }
     });
   } else {
-    res.status(400).json({ message: 'No credentials provide' });
+    res.status(400).json({ message: 'Please provide valid credentials!' });
   }
 };
