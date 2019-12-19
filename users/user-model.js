@@ -11,8 +11,9 @@ function find() {
 }
 
 function findBy(property) {
+  console.log(property);
   return db('users')
-    .select('id', 'username', 'department')
+    .select('username', 'password')
     .where(property)
     .first();
 }

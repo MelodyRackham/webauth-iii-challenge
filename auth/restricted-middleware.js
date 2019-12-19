@@ -23,7 +23,7 @@ function restricted(req, res, next) {
   if (!Object.entries(authorization).length) {
     return res.status(400).json({ message: 'No authorized token in headers' });
   }
-  const secret = process.env.JWT_SECRET;
+  const secret = process.env.JWT_SECRET || 'secret';
 
   jwt.verify(authorization, secret, (err, decoded) => {
     if (err) {
